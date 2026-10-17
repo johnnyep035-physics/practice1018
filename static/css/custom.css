@@ -1,0 +1,112 @@
+/*
+ * custom.css
+ * 訂單管理系統專用自訂樣式表
+ */
+
+:root {
+    --bs-font-sans-serif: 'Noto Sans TC', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    --card-border-radius: 1rem;
+}
+
+body {
+    font-family: var(--bs-font-sans-serif);
+    color: #1e293b;
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+/* 品牌圖標微調 */
+.brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #60a5fa;
+}
+
+/* 統計卡片懸浮微互動效果 */
+.stat-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 狀態下拉選單微調 */
+.status-select {
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.status-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.15);
+}
+
+/* 點擊游標指示 */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* 選中行高亮 */
+.table-primary-subtle {
+    background-color: #eff6ff !important;
+}
+
+/* 出貨單專屬卡片 */
+.delivery-slip {
+    border: 1px solid #e2e8f0 !important;
+}
+
+/* 列印專用樣式調整 */
+@media print {
+    body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    nav, footer, .d-print-none, .alert, .btn {
+        display: none !important;
+    }
+
+    .container-fluid, main {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .delivery-slip {
+        border: none !important;
+    }
+
+    .table {
+        border-color: #000000 !important;
+    }
+
+    .badge {
+        border: 1px solid #000 !important;
+        color: #000 !important;
+        background: transparent !important;
+    }
+}
