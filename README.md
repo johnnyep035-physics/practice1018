@@ -63,9 +63,44 @@ python app.py
 
 ---
 
-## ☁️ 雲端 Render 部署說明
+## ☁️ 雲端 Render 部署與 CI/CD 自動化管線
 
-本專案支援一鍵部署至 [Render.com](https://render.com) 免費 Web Service：
-- **Runtime**: `Python 3`
-- **Build Command**: `pip install -r requirements.txt`
-- **Start Command**: `gunicorn app:app`
+本專案已配置完整 **GitHub Actions + Render CI/CD** 自動化流程（定義於 `.github/workflows/deploy.yml`）：
+
+```
+[程式碼 Push 到 GitHub]
+          │
+          ▼
+┌───────────────────────────────┐
+│  GitHub Actions (CI 階段)     │
+│  - Python 3.11 環境安裝       │
+│  - 依賴安裝 (pip install)     │
+│  - 資料庫初始化與編碼檢驗     │
+│  - 執行單元與整合測試 (test)  │
+└──────────────┬────────────────┘
+               │ 測試通過 (PASS)
+               ▼
+┌───────────────────────────────┐
+│  GitHub Actions (CD 階段)     │
+│  - 呼叫 Render Deploy Hook    │
+└──────────────┬────────────────┘
+               │
+               ▼
+┌───────────────────────────────┐
+│  Render 雲端 (自動重新部署)   │
+│  - 自動拉取最新通過測試的代碼 │
+│  - Gunicorn 服務零停機更新上線│
+└───────────────────────────────┘
+```
+
+### 如何設定 Render Deploy Hook (只需設定一次)：
+1. 登入 [Render](https://render.com) 並進入您的 Web Service 頁面。
+2. 點選左側選單 **Settings** &rarr; 找到 **Deploy Hook**。
+3. 複製 Deploy Hook 網址（格式如：`https://api.render.com/deploy/srv-xxxxxxx?key=yyyyyyy`）。
+4. 前往本專案的 GitHub 倉儲：
+   - 點擊 **Settings** &rarr; **Secrets and variables** &rarr; **Actions**。
+   - 點擊 **New repository secret**。
+   - **Name**: `RENDER_DEPLOY_HOOK_URL`
+   - **Secret**: 貼上第 3 步複製的 Deploy Hook 網址，點擊 **Add secret**。
+5. 完成！未來每次 push 代碼到 `main` 分支時，GitHub Actions 會自動執行完整測試，只有在測試 100% 通過時，才會觸發 Render 雲端自動上線！
+

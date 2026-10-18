@@ -1,0 +1,14 @@
+# render.yaml - Render Blueprint 設定檔
+services:
+  - type: web
+    name: practice1018
+    runtime: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: FLASK_SECRET_KEY
+        generateValue: true
