@@ -1,5 +1,7 @@
 # 商業訂單管理系統 (Order Management System)
 
+[![CI/CD Pipeline to Render](https://github.com/johnnyep035-physics/practice1018/actions/workflows/deploy.yml/badge.svg)](https://github.com/johnnyep035-physics/practice1018/actions/workflows/deploy.yml)
+
 本專案使用 **Flask + SQLite + Bootstrap 5** 開發，為商業數據分析與訂單管理實作系統，支援繁體中文環境、歷史單價存證、列表直接更新狀態、專屬出貨單與驗收 QR Code 動態生成。
 
 ---
